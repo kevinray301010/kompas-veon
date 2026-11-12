@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#fbfbf8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Kompas">
+<meta name="robots" content="noindex,nofollow">
+<title>Kompas</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/favicon-32.png">
+<style>
+html,body{margin:0;height:100%;background:#fbfbf8;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif}
+.lock{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;box-sizing:border-box;text-align:center}
+.lock img{width:88px;height:88px;animation:b 4s ease-in-out infinite}
+@keyframes b{50%{opacity:.45}}
+.lock p{margin:0;font-size:14px;color:#3a3a3a;max-width:280px;line-height:1.5}
+.lock form{display:none;gap:8px;width:100%;max-width:300px}
+.lock input{flex:1;min-width:0;padding:12px 14px;border:1px solid #b9b7ae;border-radius:2px;font-size:16px;background:#fff;color:#111}
+.lock button{padding:12px 16px;border:0;border-radius:2px;background:#111;color:#fbfbf8;font-size:15px}
+.err{color:#b42318!important}
+</style>
+</head>
+<body>
+<div class="lock" id="lock">
+ <img src="icons/icon-192.png" alt="">
+ <p id="msg">Membuka Kompas…</p>
+ <form id="f"><input id="k" type="password" autocomplete="current-password" placeholder="Kode Kompas"><button>Buka</button></form>
+</div>
+<script>
+(function(){
+ var KEY='kompas-kode';
+ var msg=document.getElementById('msg'),form=document.getElementById('f'),inp=document.getElementById('k');
+ function store(v){try{localStorage.setItem(KEY,v)}catch(e){}}
+ function load(){try{return localStorage.getItem(KEY)}catch(e){return null}}
+ function b64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+ function ask(t,err){msg.textContent=t;msg.className=err?'err':'';form.style.display='flex';inp.focus()}
+ var m=location.hash.match(/k=([^&]+)/);
+ if(m){store(decodeURIComponent(m[1]));history.replaceState(null,'',location.pathname+location.search)}
+ window.addEventListener('hashchange',function(){if(/k=/.test(location.hash))location.reload()});
+ if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+ async function open(code){
+  msg.textContent='Membuka Kompas…';msg.className='';form.style.display='none';
+  var r=await fetch('data.enc.json',{cache:'no-cache'}).catch(function(){return null});
+  if(!r||!r.ok){ask('Data belum bisa dimuat. Cek koneksi lalu coba lagi.',true);return}
+  var d=await r.json();
+  try{
+   var base=await crypto.subtle.importKey('raw',new TextEncoder().encode(code),'PBKDF2',false,['deriveKey']);
+   var key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:b64(d.salt),iterations:d.iter,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['decrypt']);
+   var plain=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(d.iv)},key,b64(d.ct));
+   var html=new TextDecoder().decode(plain);
+  }catch(e){store('');ask('Kode salah. Masukkan kode Kompas.',true);return}
+  var head='<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kompas"><meta name="theme-color" content="#fbfbf8">';
+  html=html.replace(/<head>/i,'<head>'+head);
+  document.open();document.write(html);document.close();
+ }
+ form.addEventListener('submit',function(e){e.preventDefault();var v=inp.value.trim();if(!v)return;store(v);open(v)});
+ var c=load();
+ if(c)open(c);else ask('Masukkan kode Kompas. Cukup sekali di perangkat ini.');
+})();
+</script>
+</body>
+</html>
