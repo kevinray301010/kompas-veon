@@ -67,6 +67,23 @@ section{display:flex;flex-direction:column;gap:18px}
 .gauge .big{font-family:var(--f-mono);font-size:30px;font-weight:600}
 .gauge .sm{font-size:11.5px;color:var(--muted);max-width:130px;line-height:1.35}
 
+
+/* THINK */
+.think{border:1px solid var(--line);border-radius:18px;padding:22px;background:var(--surface);display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden}
+.think::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(var(--gold),var(--mint));animation:shine 4s ease-in-out infinite}
+@keyframes shine{50%{opacity:.35}}
+.think .th{display:flex;gap:12px;align-items:flex-start}
+.think .orb{flex:0 0 12px;height:12px;margin-top:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 var(--gold);animation:orb 2.8s infinite}
+@keyframes orb{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 45%,transparent)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.think .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.think .col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.think .it{display:flex;flex-direction:column;gap:3px;padding-top:10px;border-top:1px solid var(--line);animation:rise .6s cubic-bezier(.2,.7,.2,1) backwards}
+.think .it b{font-size:14px;font-weight:600}
+.think .it span{font-size:13px;color:var(--muted)}
+.think .it .imp{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
+.think .chal{background:var(--gold-soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:680px){.think .cols{grid-template-columns:1fr}}
+
 /* CHANGES */
 .changes{border-left:2px solid var(--gold);padding:4px 0 4px 16px;display:flex;flex-direction:column;gap:6px}
 .changes li{list-style:none;font-size:14px}
@@ -263,6 +280,21 @@ function render(){
   </section>
 
   ${s.changes?.length?`<section class="changes"><div class="eyebrow">Yang berubah</div><ul>${s.changes.map(c=>`<li>${esc(c)}</li>`).join("")}</ul></section>`:""}
+
+
+  ${s.think?`<section>
+    <div class="head"><div class="eyebrow">Catatan 01.00 · pikiran Claude</div><h2>Yang mungkin belum terpikir</h2>
+      <p class="lede">Bagian ini aku isi sendiri tiap malam setelah membaca semua update hari itu: titik buta, usulan, asumsi yang perlu ditantang, dan pertanyaan balik untukmu.</p></div>
+    <div class="think">
+      <div class="th"><span class="orb"></span><h3 style="font-size:18px">${esc(s.think.headline)}</h3></div>
+      <div class="cols">
+        <div class="col"><span class="lbl">Titik buta</span>${(s.think.blindspots||[]).map((x,i)=>`<div class="it" style="animation-delay:${.08*i+.1}s"><b>${esc(x.t)}</b><span>${esc(x.why)}</span></div>`).join("")}</div>
+        <div class="col"><span class="lbl">Usulan</span>${(s.think.proposals||[]).map((x,i)=>`<div class="it" style="animation-delay:${.08*i+.3}s">${x.impact?`<span class="imp">${esc(x.impact)}</span>`:""}<b>${esc(x.t)}</b><span>${esc(x.why)}</span></div>`).join("")}</div>
+        <div class="col"><span class="lbl">Pertanyaan untukmu</span>${(s.think.askKevin||[]).map((x,i)=>`<div class="it" style="animation-delay:${.08*i+.5}s"><b>${esc(x)}</b></div>`).join("")}</div>
+      </div>
+      ${s.think.challenge?`<div class="chal"><span class="lbl">Asumsi yang aku tantang</span><p style="font-size:14px">${esc(s.think.challenge)}</p></div>`:""}
+    </div>
+  </section>`:""}
 
   <section>
     <div class="head"><div class="eyebrow">Angka vital</div><h2>Empat angka yang menentukan langkah berikutnya</h2></div>
