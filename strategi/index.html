@@ -52,20 +52,14 @@ section{display:flex;flex-direction:column;gap:18px}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
 
 /* HERO */
-.hero{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:28px;align-items:center}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:28px;align-items:center}
 .hero h1{font-size:clamp(28px,5.6vw,46px);line-height:1.08;font-weight:700}
 .hero .thesis{color:var(--muted);font-size:16px;max-width:60ch;margin-top:14px}
-.meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px;font-size:12.5px;color:var(--muted)}
+.meta{display:flex;gap:8px 10px;flex-wrap:wrap;align-items:center;margin-top:16px;font-size:12.5px;color:var(--muted)}
 .meta .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:blink 2.6s infinite}
 @keyframes blink{50%{opacity:.25}}
-.gauge{position:relative;width:200px;height:200px}
-.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
-.gauge .trk{fill:none;stroke:var(--line);stroke-width:10}
-.gauge .proj{fill:none;stroke:var(--gold-soft);stroke-width:10}
-.gauge .val{fill:none;stroke:var(--fg);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1.8s cubic-bezier(.3,.8,.2,1)}
-.gauge .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2px}
-.gauge .big{font-family:var(--f-mono);font-size:30px;font-weight:600}
-.gauge .sm{font-size:11.5px;color:var(--muted);max-width:130px;line-height:1.35}
+.meta .upd{display:flex;gap:8px;align-items:baseline;min-width:0}
+.meta .dot{flex:0 0 7px;transform:translateY(-1px)}
 
 
 /* THINK */
@@ -83,6 +77,24 @@ section{display:flex;flex-direction:column;gap:18px}
 .think .it .imp{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--gold)}
 .think .chal{background:var(--gold-soft);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
 @media (max-width:680px){.think .cols{grid-template-columns:1fr}}
+
+
+.gwrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+.gauge{position:relative;width:180px;height:180px;flex:0 0 auto}
+.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .trk{fill:none;stroke:var(--line);stroke-width:12}
+.gauge .proj{fill:none;stroke:var(--gold);opacity:.35;stroke-width:12}
+.gauge .val{fill:none;stroke:var(--fg);stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1.8s cubic-bezier(.3,.8,.2,1)}
+.gauge .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:0}
+.gauge .big{font-family:var(--f-mono);font-size:34px;font-weight:600;line-height:1.1}
+.gauge .sm{font-size:12px;color:var(--muted)}
+.glegend{margin:0;display:flex;flex-direction:column;gap:8px;width:100%;min-width:0}
+.glegend div{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.glegend dt{color:var(--muted);display:flex;align-items:center;gap:7px}
+.glegend dd{margin:0;font-family:var(--f-mono);font-weight:600;white-space:nowrap}
+.sw{width:10px;height:10px;border-radius:3px;display:inline-block}
+.sw.v{background:var(--fg)}.sw.p{background:var(--gold);opacity:.5}.sw.t{border:1.5px solid var(--line)}
+button{touch-action:manipulation;-webkit-user-select:none;user-select:none}
 
 /* CHANGES */
 .changes{border-left:2px solid var(--gold);padding:4px 0 4px 16px;display:flex;flex-direction:column;gap:6px}
@@ -174,16 +186,18 @@ section{display:flex;flex-direction:column;gap:18px}
 .exp .res{color:var(--fg);font-size:14px}
 
 /* FORK */
-.toggle{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;align-self:flex-start;position:relative}
-.toggle button{all:unset;cursor:pointer;padding:8px 18px;border-radius:999px;font-weight:600;font-size:14px;position:relative;z-index:1;transition:color .3s}
-.toggle button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.toggle .pill{position:absolute;top:4px;bottom:4px;left:0;border-radius:999px;background:var(--fg);transition:transform .4s cubic-bezier(.3,.8,.2,1),width .4s}
-.toggle button[aria-pressed="true"]{color:var(--bg)}
 .path{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:22px}
 .path .ceil{font-family:var(--f-mono);font-size:28px;font-weight:600;color:var(--gold)}
 .path ul{margin:4px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px}
 .lean{font-size:13px;padding:10px 12px;border-radius:10px;background:var(--gold-soft)}
 .note{font-size:13.5px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px}
+
+.toggle{display:grid;grid-template-columns:1fr 1fr;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px;gap:4px;position:relative;width:100%;max-width:360px}
+.toggle button{all:unset;cursor:pointer;min-height:44px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-weight:600;font-size:15px;position:relative;z-index:1;transition:color .3s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.toggle button:active{transform:scale(.97)}
+.toggle button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.toggle .pill{position:absolute;top:4px;bottom:4px;left:0;border-radius:10px;background:var(--fg);transition:transform .4s cubic-bezier(.3,.8,.2,1),width .4s}
+.toggle button[aria-pressed="true"]{color:var(--bg)}
 
 /* INSIGHTS + LISTS */
 .two{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px}
@@ -204,7 +218,7 @@ footer{font-size:12px;color:var(--muted);border-top:1px solid var(--line);paddin
 @keyframes load{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
 
 @media (max-width:680px){
-  .hero{grid-template-columns:1fr}.gauge{width:170px;height:170px}
+  .hero{grid-template-columns:1fr}.gwrap{flex-direction:row;align-items:center;gap:16px}.gauge{width:132px;height:132px}.gauge .big{font-size:26px}
   .vitals{grid-template-columns:repeat(2,minmax(0,1fr))}
   .exps,.two,.path,.ndetail{grid-template-columns:1fr}
   .bet>button{grid-template-columns:22px minmax(0,1fr) 20px}
@@ -225,7 +239,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .lockf input{flex:1;min-width:0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:16px;background:var(--surface);color:var(--fg)}
 .lockf button{padding:12px 16px;border:0;border-radius:10px;background:var(--fg);color:var(--bg);font-size:15px;font-weight:600}
 .refresh{all:unset;cursor:pointer;margin-left:4px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--muted)}
+.refresh{min-height:32px;display:inline-flex!important;align-items:center;gap:6px}
 .refresh:active{transform:scale(.96)}
+.refresh.spin .ic{display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:13px;font-weight:500;z-index:20;transition:opacity .3s,transform .3s;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
@@ -242,6 +261,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <script>
 const $=s=>document.querySelector(s);
+const idn=v=>(v===null||v===undefined||v==="")?"–":String(v).replace(".",",");
+
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const chev='<svg class="chev" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M5 8l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const daysTo=d=>{if(!d)return null;const t=new Date(d+"T00:00:00+07:00"),n=new Date();return Math.ceil((t-n)/864e5)};
@@ -269,13 +290,20 @@ function render(){
       <div class="eyebrow">Pertanyaan minggu ini</div>
       <h1>${esc(s.question)}</h1>
       <p class="thesis">${esc(s.thesis)}</p>
-      <div class="meta"><span class="dot"></span>Diperbarui ${esc(s.meta?.updatedLabel||s.meta?.updatedAt)} · update otomatis tiap 01.00 WIB <button id="refresh" class="refresh" aria-label="Muat ulang">↻ Muat ulang</button></div>
+      <div class="meta"><span class="upd"><span class="dot"></span><span>Diperbarui ${esc(s.meta?.updatedLabel||s.meta?.updatedAt)} · update otomatis tiap 01.00 WIB</span></span> <button id="refresh" class="refresh" aria-label="Muat ulang"><span class="ic">↻</span> Muat ulang</button></div>
     </div>
-    <div class="gauge" aria-label="Run rate ${esc(n.runRate)} juta per hari dari target ${esc(n.target)} juta">
-      <svg viewBox="0 0 200 200"><circle class="trk" cx="100" cy="100" r="84"/>
-        <circle class="proj" cx="100" cy="100" r="84" stroke-dasharray="${projLen} ${C}"/>
-        <circle class="val" id="gv" cx="100" cy="100" r="84" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
-      <div class="ctr"><span class="big">${esc(n.runRate)}</span><span class="sm">dari Rp ${esc(n.target)} jt/hari<br>${esc(n.label||"")}</span></div>
+    <div class="gwrap">
+      <div class="gauge" aria-label="Run rate ${esc(n.runRate)} juta per hari dari target ${esc(n.target)} juta">
+        <svg viewBox="0 0 200 200"><circle class="trk" cx="100" cy="100" r="84"/>
+          <circle class="proj" cx="100" cy="100" r="84" stroke-dasharray="${projLen} ${C}"/>
+          <circle class="val" id="gv" cx="100" cy="100" r="84" stroke-dasharray="${C}" stroke-dashoffset="${C}"/></svg>
+        <div class="ctr"><span class="big">${idn(n.runRate)}</span><span class="sm">jt / hari</span></div>
+      </div>
+      <dl class="glegend">
+        <div><dt><i class="sw v"></i>Sekarang</dt><dd>Rp ${idn(n.runRate)} jt/hari</dd></div>
+        <div><dt><i class="sw p"></i>Proyeksi 22–31 Des</dt><dd>${pj.length?`Rp ${idn(pj[0])}–${idn(pj[1])} jt`:"–"}</dd></div>
+        <div><dt><i class="sw t"></i>Target</dt><dd>Rp ${idn(n.target)} jt/hari</dd></div>
+      </dl>
     </div>
   </section>
 
@@ -384,9 +412,10 @@ const KEY='kompas-kode';
 function b64(s){const b=atob(s),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
 function store(v){try{localStorage.setItem(KEY,v)}catch(e){}}
 function load(){try{return localStorage.getItem(KEY)}catch(e){return null}}
-function ask(t){const m=$("#emptyMsg");m.textContent=t;$("#lockf").hidden=false;$("#kode").focus()}
-async function openData(code){
-  $("#lockf").hidden=true;$("#emptyMsg").textContent="Membuka Ruang Strategi…";
+function ask(t){if(S){toast(t);return}const m=$("#emptyMsg"),f=$("#lockf");if(m)m.textContent=t;if(f){f.hidden=false;$("#kode").focus()}}
+function toast(t){let el=$("#toast");if(!el){el=document.createElement("div");el.id="toast";el.className="toast";document.body.appendChild(el)}el.textContent=t;el.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("on"),2200)}
+async function openData(code,opts={}){
+  const f0=$("#lockf");if(f0)f0.hidden=true;const m0=$("#emptyMsg");if(m0)m0.textContent="Membuka Ruang Strategi…";
   let r=await fetch("data.enc.json",{cache:"no-cache"}).catch(()=>null);
   if(!r||!r.ok){ask("Data belum bisa dimuat. Cek koneksi lalu tarik ulang.");return}
   const d=await r.json();
@@ -396,14 +425,15 @@ async function openData(code){
     const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64(d.iv)},key,b64(d.ct));
     S=JSON.parse(new TextDecoder().decode(plain));
   }catch(e){store("");ask("Kode salah. Masukkan kode Kompas (kode yang sama dengan PWA Kompas).");return}
-  render();
+  const prev=S&&S.__ed;render();
+  if(opts.manual)toast(S.meta&&S.meta.updatedLabel?"Sudah versi terbaru · "+S.meta.updatedLabel:"Sudah versi terbaru");
   if(document.fonts)document.fonts.ready.then(()=>{if(S.fork)showFork(fork)});
 }
 const hm=location.hash.match(/k=([^&]+)/);
 if(hm){store(decodeURIComponent(hm[1]));history.replaceState(null,"",location.pathname+location.search)}
 if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
 document.addEventListener("submit",e=>{if(e.target.id!=="lockf")return;e.preventDefault();const v=$("#kode").value.trim();if(!v)return;store(v);openData(v)});
-document.addEventListener("click",e=>{if(e.target.closest("#refresh")){const c=load();if(c){S=null;openData(c)}}});
+document.addEventListener("click",e=>{const rb=e.target.closest("#refresh");if(rb){const c=load();if(c){rb.classList.add("spin");openData(c,{manual:true}).finally(()=>rb.classList.remove("spin"))}}});
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&S){const c=load();if(c)openData(c)}});
 const c0=load();if(c0)openData(c0);else ask("Masukkan kode Kompas. Cukup sekali di HP ini.");
 </script>

@@ -1,5 +1,5 @@
 // Ruang Strategi Veon: network-first, fallback ke cache supaya tetap terbuka saat offline.
-const CACHE = 'strategi-v1';
+const CACHE = 'strategi-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'data.enc.json'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
