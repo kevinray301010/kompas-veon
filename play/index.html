@@ -1,0 +1,1256 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VEON PLAY</title>
+<meta name="description" content="Atur Americano dan Mexicano padel dalam 30 detik. Tempel list dari grup WA, ronde pas waktu sewa, skor, klasemen, dan kartu IG Story. Gratis dari VEON Padel.">
+<meta name="theme-color" content="#0E0E0C">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="VEON PLAY">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="VEON PLAY">
+<meta property="og:description" content="Atur Americano dan Mexicano padel dalam 30 detik. Gratis, tanpa install.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kevinray301010.github.io/kompas-veon/play/">
+<meta property="og:image" content="https://kevinray301010.github.io/kompas-veon/play/icons/icon-512.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap">
+<style>
+/* Layout: satu kolom untuk dipakai di pinggir lapangan, maks 480px, tombol aksi menempel di bawah. VEON hitam-emas, mint untuk aksi. */
+:root{
+  color-scheme: dark;
+  --bg:#0E0E0C; --surface:#1A1916; --surface-2:#22201C; --line:#2C2A25; --line-2:#3A372F;
+  --fg:#F3EFE6; --fg-2:#CFC8BB; --muted:#A39C90; --faint:#6B655B;
+  --gold:#D4AF5A; --gold-ink:#14120C; --gold-line:#6B5A2E; --gold-bg:#17150F;
+  --mint:#7FE0C2; --mint-ink:#0B1F19; --mint-bg:#12261F; --mint-line:#1F4A3C; --mint-fg:#CFEFE3;
+  --warn:#E6C778; --down:#F09A7A;
+  --tag-l-bg:#1D2A35; --tag-l-fg:#9CC3E6; --tag-p-bg:#3A2A1C; --tag-p-fg:#F2B58A;
+  --scrim:rgba(6,6,5,.74); --bar:rgba(14,14,12,.94);
+  --f-display:'Space Grotesk', system-ui, sans-serif;
+  --f-body:Manrope, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --r-lg:20px; --r-md:16px;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--bg);color:var(--fg)}
+body{margin:0;font-family:var(--f-body);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button,input,textarea{font:inherit;color:inherit}
+button{touch-action:manipulation}
+a{color:var(--mint)}
+:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.app{max-width:480px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:calc(18px + env(safe-area-inset-top,0px));padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+section{display:flex;flex-direction:column;gap:16px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.brand{display:flex;align-items:baseline;gap:7px}
+.brand .b1{font-family:var(--f-display);font-weight:700;font-size:20px;letter-spacing:.2em}
+.brand .b2{font-size:12px;font-weight:800;letter-spacing:.16em;color:var(--mint)}
+.pill{font-size:12px;font-weight:700;color:var(--gold);border:1px solid var(--gold-line);border-radius:999px;padding:5px 10px;white-space:nowrap}
+.hero{display:flex;flex-direction:column;gap:6px}
+h1{margin:0;font-family:var(--f-display);font-weight:600;font-size:28px;line-height:1.12;text-wrap:balance}
+.hero p{margin:0;color:var(--muted);font-size:14.5px;max-width:60ch}
+
+.install{display:flex;align-items:center;gap:10px;padding:12px 8px 12px 14px;border-radius:var(--r-md);background:var(--gold-bg);border:1px solid var(--gold-line)}
+.install p{margin:0;flex:1;min-width:0;font-size:13.5px;line-height:1.45;color:var(--fg-2)}
+.install b{color:var(--fg)}
+.install .x{flex:none;width:40px;height:40px;border:0;background:none;color:var(--muted);border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+
+.block{display:flex;flex-direction:column;gap:10px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.block-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.lbl{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.count{font-size:13px;font-weight:700;color:var(--mint);text-align:right}
+textarea{width:100%;min-height:150px;resize:vertical;background:var(--bg);border:1.5px solid var(--line-2);border-radius:var(--r-md);padding:12px 14px;font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;font-size:16px;line-height:1.5;color:var(--fg-2)}
+input[type=text]{width:100%;min-height:48px;background:var(--bg);border:1.5px solid var(--line-2);border-radius:var(--r-md);padding:0 14px;font-size:16px}
+textarea:focus,input[type=text]:focus{border-color:var(--mint);outline:none}
+.hint{margin:0;font-size:13px;line-height:1.45;color:var(--muted)}
+.hint.warn{color:var(--warn)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;max-width:100%;background:var(--bg);border:1px solid var(--line-2);border-radius:22px}
+.chip .nm{display:inline-flex;align-items:center;gap:8px;min-height:44px;min-width:0;padding:0 4px 0 14px;background:none;border:0;font-weight:700;font-size:14.5px;cursor:pointer}
+.chip .t{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:150px}
+.tag{flex:none;width:26px;height:26px;border-radius:13px;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+.tag.L{background:var(--tag-l-bg);color:var(--tag-l-fg)}
+.tag.P{background:var(--tag-p-bg);color:var(--tag-p-fg)}
+.chip .rm{width:40px;min-height:44px;border:0;background:none;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;border-radius:0 22px 22px 0}
+.add{display:flex;gap:8px}
+.add input{flex:1;min-width:0}
+
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:4px;padding:4px;background:var(--bg);border:1px solid var(--line);border-radius:14px}
+.seg button{min-height:44px;padding:0 4px;border:0;border-radius:10px;background:transparent;font-weight:600;font-size:14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--mint);color:var(--mint-ink);font-weight:800}
+.seg button:disabled{opacity:.35;cursor:not-allowed}
+.line{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stepper{display:flex;align-items:center;gap:6px}
+.step{width:44px;height:44px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.stepper output{min-width:38px;text-align:center;font-family:var(--f-display);font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+.teams{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.teams span{font-size:13.5px;font-weight:600;padding:9px 10px;border-radius:10px;background:var(--bg);border:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.rec{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:var(--r-lg);background:var(--mint-bg);border:1px solid var(--mint-line)}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rec .eyebrow{color:var(--mint)}
+.rec-title{font-family:var(--f-display);font-size:26px;line-height:1.15;font-weight:700}
+.rec-sub{font-size:13.5px;color:var(--mint-fg)}
+.rec-fair{font-size:13.5px;font-weight:700}
+.rec-warn{font-size:13px;font-weight:700;color:var(--warn)}
+.rec .line{margin-top:6px;padding-top:10px;border-top:1px solid var(--mint-line)}
+.rec .step{background:transparent;border-color:var(--mint-line)}
+.ver{margin:0;text-align:center;font-size:12px;color:var(--muted)}
+
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--bar);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.bar-row{display:flex;gap:10px}
+.bar-note{margin:0;font-size:12.5px;font-weight:700;color:var(--warn);text-align:center}
+.btn{flex:1;min-height:54px;padding:0 16px;border-radius:var(--r-md);border:1px solid var(--line-2);background:var(--surface);color:var(--fg);font-weight:800;font-size:15.5px;line-height:1.2;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;text-align:center;text-decoration:none}
+.btn.primary{background:var(--mint);border-color:transparent;color:var(--mint-ink)}
+.btn.small{flex:none;min-height:44px;padding:0 16px;font-size:14px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.sess-top{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:12px}
+.icon-btn{width:44px;height:44px;border-radius:22px;border:1px solid var(--line);background:var(--surface);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.sess-mid{min-width:0;display:flex;flex-direction:column;gap:2px}
+.sess-mid .eyebrow{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sess-mid h1{font-size:24px}
+.of{color:var(--muted);font-weight:500}
+.clock{display:flex;flex-direction:column;align-items:flex-end;gap:1px}
+.clock-main{font-family:var(--f-display);font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.clock-sub{font-size:12px;font-weight:600;color:var(--muted);white-space:nowrap}
+.clock-sub.over{color:var(--down)}
+.rchips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.rchips::-webkit-scrollbar{display:none}
+.rchip{flex:none;min-width:48px;height:40px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:14px;cursor:pointer;font-variant-numeric:tabular-nums}
+.rchip.done{color:var(--mint)}
+.rchip[aria-pressed="true"]{border-color:var(--fg);background:var(--fg);color:var(--bg)}
+.matches{display:flex;flex-direction:column;gap:12px}
+.match{display:flex;flex-direction:column;gap:12px;padding:14px 14px 16px;border-radius:var(--r-lg);background:var(--surface);border:1px solid var(--line)}
+.match-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.match-head .lead{font-size:12.5px;font-weight:700;color:var(--warn)}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);align-items:center;gap:6px}
+.side{display:flex;flex-direction:column;align-items:center;gap:10px;min-width:0;text-align:center}
+.names{font-weight:700;font-size:15px;line-height:1.3;overflow-wrap:anywhere}
+.vs-mid{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--faint);text-align:center}
+.score{width:100%;max-width:118px;height:66px;padding:0;text-align:center;font-family:var(--f-display);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums;background:var(--bg);border:1.5px solid var(--line-2);border-radius:14px}
+.score:focus{border-color:var(--fg);outline:none}
+.side.win .names,.side.win .score{color:var(--mint)}
+.side.win .score{border-color:var(--mint)}
+.sit{padding:12px 14px;border-radius:var(--r-md);border:1px dashed var(--line-2);font-size:14px;color:var(--fg-2)}
+.sit b{color:var(--fg)}
+
+.table{display:flex;flex-direction:column}
+.trow{display:grid;grid-template-columns:34px minmax(0,1fr) 40px 62px 48px;align-items:center;gap:8px;min-height:50px;padding:0 2px;border-top:1px solid var(--line)}
+.trow.c3{grid-template-columns:minmax(0,1fr) 56px 76px}
+.trow.head{min-height:30px;border-top:0;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.trow .num{text-align:right;font-variant-numeric:tabular-nums}
+.trow .nm{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.trow .pts{font-family:var(--f-display);font-weight:700;font-size:17px}
+.rank{width:30px;height:30px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:700;font-size:14px;color:var(--muted)}
+.rank.r1{background:var(--gold);color:var(--gold-ink)}
+.rank.r2,.rank.r3{background:var(--line);color:var(--fg)}
+
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:10px;padding-top:6px}
+.pod{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0;text-align:center}
+.pod .av{width:46px;height:46px;border-radius:23px;background:var(--line);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.pod.p1 .av{width:58px;height:58px;border-radius:29px;background:var(--gold);color:var(--gold-ink);font-size:20px}
+.pod .pn{font-weight:800;font-size:14.5px;line-height:1.25;overflow-wrap:anywhere}
+.pod .pv{font-size:12.5px;color:var(--muted)}
+.pod .base{width:100%;border-radius:12px 12px 4px 4px;display:flex;align-items:center;justify-content:center;font-family:var(--f-display);font-weight:700}
+.pod.p1 .base{height:100px;background:var(--gold);color:var(--gold-ink);font-size:34px}
+.pod.p2 .base{height:74px;background:var(--line);font-size:28px}
+.pod.p3 .base{height:58px;background:var(--surface-2);font-size:24px}
+.mvp-tag{font-size:10px;font-weight:800;letter-spacing:.18em;color:var(--gold)}
+.prize{display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:var(--r-lg);border:1.5px dashed var(--gold-line);background:var(--gold-bg)}
+.prize .eyebrow{color:var(--gold)}
+.prize p{margin:0;font-size:14.5px;line-height:1.5}
+.stack{display:flex;flex-direction:column;gap:10px}
+.foot{margin:0;text-align:center;font-size:12.5px;color:var(--muted)}
+
+.scrim{position:fixed;inset:0;z-index:40;background:var(--scrim);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:480px;max-height:90%;overflow-y:auto;background:var(--surface);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;padding-top:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:12px}
+.sheet h2{margin:0;font-family:var(--f-display);font-size:20px;font-weight:600}
+.sheet p{margin:0;color:var(--fg-2);font-size:14.5px}
+.sheet textarea{min-height:220px;font-size:14px}
+
+.overlay{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.overlay-in{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+#cardCanvas{display:none}
+#cardImg{display:block;width:100%;max-width:340px;height:auto;aspect-ratio:9/16;margin:0 auto;border-radius:14px;border:1px solid var(--line);-webkit-touch-callout:default}
+.center{text-align:center}
+
+.toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom,0px));z-index:60;max-width:calc(100% - 32px);transform:translate(-50%,10px);background:var(--fg);color:var(--bg);font-weight:700;font-size:14px;padding:12px 16px;border-radius:14px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <section id="v-setup" hidden>
+    <header class="top">
+      <div class="brand"><span class="b1">VEON</span><span class="b2">PLAY</span></div>
+      <span class="pill">Gratis · tanpa daftar</span>
+    </header>
+    <div class="hero">
+      <h1>Atur Americano dalam 30 detik</h1>
+      <p>Tempel list dari grup WA atau Reclub. Ronde, pasangan, skor, dan klasemen diatur otomatis.</p>
+    </div>
+    <div class="install" id="installBox" hidden></div>
+
+    <div class="block">
+      <div class="block-head"><label for="paste" class="lbl">List pemain</label><span class="count" id="pCount"></span></div>
+      <textarea id="paste" rows="7" spellcheck="false" autocomplete="off" placeholder="1. Kevin&#10;2. Budi&#10;3. Rina (P)"></textarea>
+      <p class="hint" id="pasteHint">Ini contoh. Ketuk kotak di atas, lalu tempel list grupmu. Tulis (P) di belakang nama pemain perempuan, atau ketuk namanya di bawah.</p>
+      <div class="chips" id="chips"></div>
+      <form class="add" id="addForm" autocomplete="off">
+        <label for="addName" class="sr">Tambah nama pemain</label>
+        <input id="addName" type="text" placeholder="Tambah satu nama" maxlength="24" enterkeyhint="done">
+        <button type="submit" class="btn small">Tambah</button>
+      </form>
+    </div>
+
+    <div class="block">
+      <label for="community" class="lbl">Nama komunitas</label>
+      <input id="community" type="text" maxlength="40" placeholder="Contoh: Mabar Rabu Malam">
+      <p class="hint">Tampil besar di kartu IG Story dan rekap WA.</p>
+    </div>
+
+    <div class="block">
+      <span class="lbl" id="lblFormat">Format</span>
+      <div class="seg" id="segFormat" role="group" aria-labelledby="lblFormat"></div>
+      <p class="hint" id="formatNote"></p>
+      <span class="lbl" id="lblPair">Pasangan</span>
+      <div class="seg" id="segPair" role="group" aria-labelledby="lblPair"></div>
+      <p class="hint" id="pairNote"></p>
+      <div class="stack" id="teamsBox" hidden></div>
+    </div>
+
+    <div class="block">
+      <div class="line">
+        <span class="lbl" id="lblCourts">Jumlah lapangan</span>
+        <div class="stepper" role="group" aria-labelledby="lblCourts">
+          <button type="button" class="step" data-act="courts-" aria-label="Kurangi lapangan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <output id="courtsVal">2</output>
+          <button type="button" class="step" data-act="courts+" aria-label="Tambah lapangan"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+        </div>
+      </div>
+      <span class="lbl" id="lblDur">Waktu sewa lapangan</span>
+      <div class="seg" id="segDur" role="group" aria-labelledby="lblDur"></div>
+    </div>
+
+    <div class="block">
+      <span class="lbl" id="lblScore">Cara hitung skor</span>
+      <div class="seg" id="segScore" role="group" aria-labelledby="lblScore"></div>
+      <span class="lbl" id="lblV">Poin per ronde</span>
+      <div class="seg" id="segV" role="group" aria-labelledby="lblV"></div>
+      <p class="hint" id="vNote"></p>
+    </div>
+
+    <div class="rec" aria-live="polite">
+      <span class="eyebrow" id="recEyebrow">Rekomendasi pas waktu sewa</span>
+      <strong class="rec-title" id="recTitle"></strong>
+      <span class="rec-sub" id="recSub"></span>
+      <span class="rec-fair" id="recFair"></span>
+      <span class="rec-warn" id="recWarn" hidden></span>
+      <div class="line">
+        <span class="lbl" id="lblRounds">Target ronde</span>
+        <div class="stepper" role="group" aria-labelledby="lblRounds">
+          <button type="button" class="step" data-act="rounds-" aria-label="Kurangi target ronde"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <output id="roundsVal">7</output>
+          <button type="button" class="step" data-act="rounds+" aria-label="Tambah target ronde"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <p class="ver">VEON PLAY 1.0 · gratis dari VEON Padel · <a id="inviteLink" href="#" target="_blank" rel="noopener">Ajak host lain</a></p>
+  </section>
+
+  <section id="v-round" hidden></section>
+  <section id="v-board" hidden></section>
+  <section id="v-done" hidden></section>
+</div>
+
+<div class="bar"><div class="bar-in" id="barIn"></div></div>
+
+<div class="scrim" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" id="sheetBody"></div>
+</div>
+
+<div class="overlay" id="cardView" hidden role="dialog" aria-modal="true" aria-label="Kartu IG Story">
+  <div class="overlay-in">
+    <canvas id="cardCanvas" width="1080" height="1920" aria-hidden="true"></canvas>
+    <img id="cardImg" alt="Kartu hasil sesi untuk IG Story" hidden>
+    <p class="hint center" id="cardHint"></p>
+    <button type="button" class="btn primary" data-act="card-save" id="cardSave" disabled>Simpan / bagikan gambar</button>
+    <button type="button" class="btn" data-act="card-close">Tutup</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+const BRAND_IG = '@veonpadel';
+const PRIZE_TEXT = 'Juara: unggah kartu hasil ke IG Story, tag ' + BRAND_IG + ', lalu klaim hadiah dari VEON lewat DM.';
+const KEY = 'veon-play-v1';
+const EXAMPLE = 'LIST MABAR RABU 19.00 (2C2H)\n1. Kevin\n2. Budi\n3. Andi\n4. Dimas\n5. Rina (P)\n6. Sari (P)\n7. Nina (P)\n8. Tasya (P)';
+const APP_URL = location.origin + location.pathname.replace(/index\.html$/, '');
+const IS_IOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const IS_STANDALONE = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+
+// ENGINE START
+const E = (() => {
+  const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+  function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  const EMOJI = /[\u{1F000}-\u{1FAFF}\u{2190}-\u{21FF}\u{2300}-\u{23FF}\u{2460}-\u{24FF}\u{25A0}-\u{27BF}\u{2900}-\u{297F}\u{2B00}-\u{2BFF}\u{3030}\u{303D}\u{3297}\u{3299}\u{FE0F}\u{200D}\u{20E3}]/gu;
+  const G_P = /[([]\s*(p|w|f|ce|cw|cwe|cewe|cewek|wanita|perempuan|female|girl)\s*[)\]]/i;
+  const G_L = /[([]\s*(l|m|co|cwo|cowo|cowok|pria|laki|laki-laki|male|boy)\s*[)\]]/i;
+  const NUM = /^\s*\d{1,2}\s*[.)\-:]\s*/;
+  const NUM_SPACE = /^\s*\d{1,2}\s+(?=\S)/;
+  const JUNK = /^[\p{N}\p{P}\p{S}\s_]+$/u;
+
+  function parseList(text) {
+    const lines = String(text || '').split(/\r?\n/);
+    const isNum = (l) => NUM.test(l) || NUM_SPACE.test(l);
+    const numbered = lines.filter(isNum);
+    const src = numbered.length >= 2 ? numbered : lines;
+    const out = [];
+    const seen = {};
+    for (const raw of src) {
+      let s = raw.replace(NUM, '').replace(NUM_SPACE, '');
+      let g = null;
+      if (G_P.test(s)) { g = 'P'; s = s.replace(G_P, ' '); }
+      else if (G_L.test(s)) { g = 'L'; s = s.replace(G_L, ' '); }
+      s = s.replace(EMOJI, ' ');
+      const tail = s.match(/\s[-–]\s*(p|l)\s*$/i);
+      if (tail) { g = g || tail[1].toUpperCase(); s = s.slice(0, tail.index); }
+      s = s.replace(/\([^)]*\)|\[[^\]]*\]/g, ' ');
+      s = s.split(/\s[-–|/]\s|\t/)[0];
+      s = s.replace(/^[\s\-–•*·>@.]+/, '').replace(/\s+/g, ' ').trim();
+      const wordG = s.match(/^(.+?)\s+(cewek|cewe|cwe|wanita|perempuan|cowok|cowo|cwo|pria)$/i);
+      if (wordG) { g = g || (/^(cewek|cewe|cwe|wanita|perempuan)$/i.test(wordG[2]) ? 'P' : 'L'); s = wordG[1]; }
+      const endG = s.match(/^(.+?)\s(P|L)$/);
+      if (endG && endG[1].length >= 2) { g = g || endG[2]; s = endG[1]; }
+      if (!s || JUNK.test(s)) continue;
+      if (numbered.length < 2 && s.length > 28) continue;
+      s = s.slice(0, 24).trim();
+      let name = s;
+      let k = 2;
+      while (seen[name.toLowerCase()]) name = s + ' ' + (k++);
+      seen[name.toLowerCase()] = true;
+      out.push({ name: name, g: g });
+      if (out.length >= 40) break;
+    }
+    return out;
+  }
+
+  function geometry(cfg, n) {
+    const team = cfg.pair === 'tetap';
+    const units = team ? Math.floor(n / 2) : n;
+    const per = team ? 2 : 4;
+    const maxMatches = Math.floor(units / per);
+    const matches = Math.max(0, Math.min(cfg.courts, maxMatches));
+    const slots = matches * per;
+    const unit = slots > 0 ? units / gcd(units, slots) : 1;
+    return { team: team, units: units, per: per, maxMatches: maxMatches, matches: matches, slots: slots, unit: unit };
+  }
+
+  function minutesPer(score, v) {
+    if (score === 'tenis') return v * 4.5 + 1;
+    if (score === 'bebas') return v;
+    return v * 0.55 + 1;
+  }
+
+  const OPTIONS = { poin: [32, 24, 21, 16], tenis: [6, 4, 3], bebas: [15, 12, 10] };
+  const MIN_ROUNDS = { poin: 6, tenis: 4, bebas: 6 };
+
+  function roundsFor(cfg, n, v) {
+    const g = geometry(cfg, n);
+    const usable = Math.max(10, cfg.dur - 10);
+    const m = minutesPer(cfg.score, v);
+    const rmax = Math.floor(usable / m);
+    const fairR = Math.floor(rmax / g.unit) * g.unit;
+    if (fairR > 0) return { r: fairR, m: m };
+    return { r: Math.max(1, rmax), m: m };
+  }
+
+  function recommend(cfg, n) {
+    const opts = OPTIONS[cfg.score] || OPTIONS.poin;
+    let best = null;
+    for (const v of opts) {
+      const p = roundsFor(cfg, n, v);
+      best = { v: v, r: p.r, m: p.m };
+      if (p.r >= MIN_ROUNDS[cfg.score]) break;
+    }
+    return best;
+  }
+
+  function fairText(cfg, n, r) {
+    const g = geometry(cfg, n);
+    if (g.matches === 0) return g.team ? 'Butuh minimal 2 tim (4 pemain)' : 'Butuh minimal 4 pemain';
+    const who = g.team ? 'tim' : 'pemain';
+    if (g.slots >= g.units) return 'Semua ' + who + ' main di setiap ronde';
+    if (r % g.unit === 0) {
+      const plays = r * g.slots / g.units;
+      return 'Tiap ' + who + ' main ' + plays + ' ronde, istirahat ' + (r - plays) + ', digilir adil';
+    }
+    return 'Istirahat digilir, selisih jumlah main paling banyak 1 ronde';
+  }
+
+  function buildStats(ses) {
+    const st = {};
+    ses.players.forEach((p) => { st[p.id] = { played: 0, sat: 0, lastSat: 0, pts: 0, against: 0, w: 0, d: 0, l: 0, games: 0, partner: {}, opp: {} }; });
+    ses.rounds.forEach((rd) => {
+      rd.sit.forEach((id) => { const s = st[id]; if (s) { s.sat++; s.lastSat = rd.n; } });
+      rd.matches.forEach((m) => {
+        const scored = m.sa != null && m.sb != null;
+        [[m.a, m.b, m.sa, m.sb], [m.b, m.a, m.sb, m.sa]].forEach((side) => {
+          const mine = side[0], theirs = side[1], x = side[2], y = side[3];
+          mine.forEach((id) => {
+            const s = st[id];
+            if (!s) return;
+            s.played++;
+            mine.forEach((o) => { if (o !== id) s.partner[o] = (s.partner[o] || 0) + 1; });
+            theirs.forEach((o) => { s.opp[o] = (s.opp[o] || 0) + 1; });
+            if (scored) {
+              s.games++; s.pts += x; s.against += y;
+              if (x > y) s.w++; else if (x === y) s.d++; else s.l++;
+            }
+          });
+        });
+      });
+    });
+    return st;
+  }
+
+  function row(id, name, s) {
+    return { id: id, name: name, played: s.played, sat: s.sat, pts: s.pts, against: s.against, w: s.w, d: s.d, l: s.l, games: s.games,
+      avg: s.games ? s.pts / s.games : 0, wr: s.games ? s.w / s.games : 0, diff: s.pts - s.against };
+  }
+  function cmp(equal) {
+    return (a, b) => equal
+      ? (b.pts - a.pts) || (b.w - a.w) || (b.diff - a.diff) || a.name.localeCompare(b.name, 'id')
+      : (b.avg - a.avg) || (b.wr - a.wr) || (b.diff - a.diff) || a.name.localeCompare(b.name, 'id');
+  }
+  const allEqual = (rows) => new Set(rows.map((r) => r.games)).size <= 1;
+
+  function standings(ses) {
+    const st = buildStats(ses);
+    const nameOf = {};
+    ses.players.forEach((p) => { nameOf[p.id] = p.name; });
+    const rows = ses.teams
+      ? ses.teams.map((t) => row(t.join('+'), nameOf[t[0]] + ' & ' + nameOf[t[1]], st[t[0]]))
+      : ses.players.map((p) => row(p.id, p.name, st[p.id]));
+    const equal = allEqual(rows);
+    rows.sort(cmp(equal));
+    return { rows: rows, equal: equal, team: !!ses.teams };
+  }
+
+  function chooseSitters(ids, k, info) {
+    if (k <= 0) return [];
+    const arr = shuffle(ids.slice());
+    arr.sort((a, b) => (info(b).played - info(a).played) || (info(a).lastSat - info(b).lastSat));
+    return arr.slice(0, k);
+  }
+
+  function americano(play, st, mix, gender) {
+    let best = null, bestC = Infinity;
+    for (let t = 0; t < 400; t++) {
+      const teams = [];
+      if (mix) {
+        const L = shuffle(play.filter((id) => gender(id) === 'L'));
+        const P = shuffle(play.filter((id) => gender(id) === 'P'));
+        while (L.length && P.length) teams.push([L.pop(), P.pop()]);
+        const rest = shuffle(L.concat(P));
+        while (rest.length >= 2) teams.push([rest.pop(), rest.pop()]);
+      } else {
+        const a = shuffle(play.slice());
+        for (let i = 0; i + 1 < a.length; i += 2) teams.push([a[i], a[i + 1]]);
+      }
+      shuffle(teams);
+      const matches = [];
+      for (let i = 0; i + 1 < teams.length; i += 2) matches.push([teams[i], teams[i + 1]]);
+      let c = 0;
+      for (const mt of matches) {
+        for (const T of mt) { const k = st[T[0]].partner[T[1]] || 0; c += k * k * 10; }
+        for (const x of mt[0]) for (const y of mt[1]) { const k = st[x].opp[y] || 0; c += k * k * 1.5; }
+      }
+      if (c < bestC) { bestC = c; best = matches; if (c === 0) break; }
+    }
+    return best || [];
+  }
+
+  function mexicano(play, st, nameOf, mix, gender) {
+    const rows = play.map((id) => row(id, nameOf[id], st[id]));
+    rows.sort(cmp(allEqual(rows)));
+    const order = rows.map((r) => r.id);
+    const matches = [];
+    for (let i = 0; i + 3 < order.length; i += 4) {
+      const g = order.slice(i, i + 4);
+      const opts = [[[g[0], g[3]], [g[1], g[2]], 0], [[g[0], g[2]], [g[1], g[3]], 2], [[g[0], g[1]], [g[2], g[3]], 4]];
+      let best = null, bc = Infinity;
+      for (const o of opts) {
+        let c = o[2];
+        for (const T of [o[0], o[1]]) {
+          c += (st[T[0]].partner[T[1]] || 0) * 3;
+          if (mix && gender(T[0]) === gender(T[1])) c += 100;
+        }
+        if (c < bc) { bc = c; best = [o[0], o[1]]; }
+      }
+      matches.push(best);
+    }
+    return matches;
+  }
+
+  function teamPairs(play, T, st) {
+    let best = null, bestC = Infinity;
+    for (let t = 0; t < 300; t++) {
+      const a = shuffle(play.slice());
+      const pairs = [];
+      let c = 0;
+      for (let i = 0; i + 1 < a.length; i += 2) {
+        pairs.push([a[i], a[i + 1]]);
+        const k = st[T[a[i]][0]].opp[T[a[i + 1]][0]] || 0;
+        c += k * k;
+      }
+      if (c < bestC) { bestC = c; best = pairs; if (c === 0) break; }
+    }
+    return best || [];
+  }
+
+  function generateRound(ses) {
+    const n = ses.rounds.length + 1;
+    const st = buildStats(ses);
+    const cfg = ses.cfg;
+    const geo = geometry(cfg, ses.players.length);
+    const nameOf = {}, gOf = {};
+    ses.players.forEach((p) => { nameOf[p.id] = p.name; gOf[p.id] = p.g; });
+    const gender = (id) => gOf[id];
+    const mex = cfg.format === 'mexicano' && cfg.score !== 'bebas' && ses.rounds.length > 0;
+    let pairs = [], sit = [];
+    if (geo.team) {
+      const T = ses.teams;
+      const idx = T.map((_, i) => i);
+      const info = (i) => st[T[i][0]];
+      const sitT = chooseSitters(idx, idx.length - geo.slots, info);
+      const play = idx.filter((i) => sitT.indexOf(i) < 0);
+      let tp;
+      if (mex) {
+        const rows = play.map((i) => Object.assign(row(i, nameOf[T[i][0]], st[T[i][0]]), { i: i }));
+        rows.sort(cmp(allEqual(rows)));
+        tp = [];
+        for (let k = 0; k + 1 < rows.length; k += 2) tp.push([rows[k].i, rows[k + 1].i]);
+      } else {
+        tp = teamPairs(play, T, st);
+      }
+      pairs = tp.map((p) => [T[p[0]].slice(), T[p[1]].slice()]);
+      sitT.forEach((i) => { sit = sit.concat(T[i]); });
+    } else {
+      const ids = ses.players.map((p) => p.id);
+      if (cfg.pair === 'mix') {
+        const L = ids.filter((id) => gOf[id] !== 'P'), P = ids.filter((id) => gOf[id] === 'P');
+        let wP = Math.min(P.length, geo.slots / 2), wL = geo.slots - wP;
+        if (wL > L.length) { wL = L.length; wP = geo.slots - wL; }
+        sit = chooseSitters(L, L.length - wL, (id) => st[id]).concat(chooseSitters(P, P.length - wP, (id) => st[id]));
+      } else {
+        sit = chooseSitters(ids, ids.length - geo.slots, (id) => st[id]);
+      }
+      const play = ids.filter((id) => sit.indexOf(id) < 0);
+      pairs = mex ? mexicano(play, st, nameOf, cfg.pair === 'mix', gender) : americano(play, st, cfg.pair === 'mix', gender);
+    }
+    return {
+      n: n,
+      startedAt: Date.now(),
+      matches: pairs.map((p, i) => ({ court: i + 1, a: p[0], b: p[1], sa: null, sb: null })),
+      sit: sit
+    };
+  }
+
+  return { parseList: parseList, geometry: geometry, minutesPer: minutesPer, roundsFor: roundsFor, recommend: recommend,
+    fairText: fairText, buildStats: buildStats, standings: standings, generateRound: generateRound, shuffle: shuffle };
+})();
+// ENGINE END
+
+/* ---------- helpers ---------- */
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const SVG = (inner, size, sw) => '<svg width="' + (size || 18) + '" height="' + (size || 18) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (sw || 2) + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+const ICON = {
+  x: SVG('<path d="M6 6l12 12M18 6L6 18"/>', 16, 2.2),
+  arrow: SVG('<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>'),
+  copy: SVG('<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/>'),
+  chat: SVG('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>'),
+  story: SVG('<rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 7v7"/><path d="M9 11l3 3 3-3"/>'),
+  dots: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>'
+};
+const DUR_LABEL = { 60: '1 jam', 90: '1,5 jam', 120: '2 jam', 180: '3 jam' };
+const V_OPTS = { poin: [16, 21, 24, 32], tenis: [3, 4, 6], bebas: [10, 12, 15] };
+const vShort = (score, v) => (score === 'poin' ? String(v) : score === 'tenis' ? v + ' game' : v + ' mnt');
+const vLong = (score, v) => (score === 'poin' ? v + ' poin' : score === 'tenis' ? 'set ' + v + ' game' : v + ' menit');
+const pad = (x) => String(x).padStart(2, '0');
+const mmss = (ms) => { const s = Math.max(0, Math.floor(ms / 1000)), m = Math.floor(s / 60), h = Math.floor(m / 60); return h ? h + ':' + pad(m % 60) + ':' + pad(s % 60) : pad(m) + ':' + pad(s % 60); };
+const fmtMin = (t) => { const h = Math.floor(t / 60), m = t % 60; return h ? (m ? h + ' j ' + m + ' m' : h + ' jam') : m + ' mnt'; };
+const dateLabel = (ts) => { try { return new Date(ts).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return new Date(ts).toDateString(); } };
+const initials = (name) => name.split(/\s*&\s*|\s+/).filter(Boolean).slice(0, 2).map((w) => w.charAt(0)).join('').toUpperCase();
+const slug = (s) => (String(s).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'sesi');
+const waLink = (text) => 'https://wa.me/?text=' + encodeURIComponent(text);
+const INVITE_TEXT = 'Atur Americano dan Mexicano padel pakai VEON PLAY. Gratis, tanpa daftar, tinggal tempel list dari grup WA: ' + APP_URL;
+
+/* ---------- state ---------- */
+function defaults() {
+  return {
+    v: 1, view: 'setup', viewRound: 1, session: null,
+    setup: { text: EXAMPLE, example: true, gmap: {}, community: 'Mabar Rabu Malam',
+      cfg: { format: 'americano', pair: 'acak', courts: 2, dur: 120, score: 'poin', v: 24, rounds: 7, vManual: false } }
+  };
+}
+function load() {
+  try { const raw = localStorage.getItem(KEY); if (!raw) return null; const d = JSON.parse(raw); return d && d.v === 1 && d.setup && d.setup.cfg ? d : null; }
+  catch (e) { return null; }
+}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* tanpa penyimpanan, tetap jalan */ } }
+let S = load() || defaults();
+
+function setupPlayers() {
+  return E.parseList(S.setup.text).map((p) => {
+    const id = p.name.toLowerCase();
+    if (p.g) S.setup.gmap[id] = p.g;
+    return { id: id, name: p.name, g: S.setup.gmap[id] === 'P' ? 'P' : 'L' };
+  });
+}
+function setPlayers(list) {
+  S.setup.text = list.map((p, i) => (i + 1) + '. ' + p.name).join('\n');
+  $('#paste').value = S.setup.text;
+}
+function refreshPlan() {
+  const cfg = S.setup.cfg, n = setupPlayers().length;
+  if (cfg.vManual && V_OPTS[cfg.score].indexOf(cfg.v) >= 0) {
+    cfg.rounds = E.roundsFor(cfg, n, cfg.v).r;
+  } else {
+    const rec = E.recommend(cfg, n);
+    cfg.v = rec.v; cfg.rounds = rec.r; cfg.vManual = false;
+  }
+}
+function startIssue() {
+  const n = setupPlayers().length, cfg = S.setup.cfg;
+  if (n < 4) return 'Butuh minimal 4 pemain';
+  if (cfg.pair === 'tetap' && n % 2) return 'Pasangan tetap butuh jumlah pemain genap';
+  return null;
+}
+const nameMap = (ses) => { const m = {}; ses.players.forEach((p) => { m[p.id] = p.name; }); return m; };
+const roundComplete = (ses, rd) => ses.cfg.score === 'bebas' || rd.matches.every((m) => m.sa != null && m.sb != null);
+function formatLabel(cfg) {
+  const f = cfg.score === 'bebas' ? 'Fun game tanpa skor' : (cfg.format === 'mexicano' ? 'Mexicano' : 'Americano') + ' · ' + vLong(cfg.score, cfg.v);
+  return f + (cfg.pair === 'mix' ? ' · mix gender' : cfg.pair === 'tetap' ? ' · pasangan tetap' : '');
+}
+
+/* ---------- render ---------- */
+function segHTML(items, current, act) {
+  return items.map((it) => '<button type="button" data-act="' + act + '" data-val="' + esc(it.val) + '" aria-pressed="' + (String(it.val) === String(current)) + '"' + (it.disabled ? ' disabled' : '') + '>' + esc(it.label) + '</button>').join('');
+}
+
+function render() {
+  if (!S.session) S.view = 'setup';
+  else if (S.session.endedAt) S.view = 'done';
+  else if (S.view === 'setup' || S.view === 'done') S.view = 'round';
+  ['setup', 'round', 'board', 'done'].forEach((v) => { $('#v-' + v).hidden = S.view !== v; });
+  if (S.view === 'setup') renderSetup();
+  else if (S.view === 'round') renderRound();
+  else if (S.view === 'board') renderBoard();
+  else renderDone();
+  renderBar();
+  tick();
+}
+
+let deferredPrompt = null;
+function renderInstall() {
+  const box = $('#installBox');
+  let dismissed = false;
+  try { dismissed = localStorage.getItem('veon-play-install-x') === '1'; } catch (e) { /* abaikan */ }
+  if (IS_STANDALONE || dismissed) { box.hidden = true; box.innerHTML = ''; return; }
+  if (deferredPrompt) {
+    box.innerHTML = '<p><b>Pasang VEON PLAY</b> di layar utama, biar sekali ketuk dari pinggir lapangan.</p>' +
+      '<button type="button" class="btn small primary" data-act="install">Pasang</button>' +
+      '<button type="button" class="x" data-act="install-x" aria-label="Tutup saran pasang">' + ICON.x + '</button>';
+    box.hidden = false;
+  } else if (IS_IOS) {
+    box.innerHTML = '<p><b>Pasang di layar utama:</b> ketuk tombol Bagikan di Safari, lalu pilih <b>Tambah ke Layar Utama</b>.</p>' +
+      '<button type="button" class="x" data-act="install-x" aria-label="Tutup saran pasang">' + ICON.x + '</button>';
+    box.hidden = false;
+  } else { box.hidden = true; box.innerHTML = ''; }
+}
+
+function renderSetup() {
+  const su = S.setup, cfg = su.cfg;
+  const ps = setupPlayers();
+  const ta = $('#paste');
+  if (document.activeElement !== ta && ta.value !== su.text) ta.value = su.text;
+  $('#pasteHint').hidden = !su.example;
+  const nP = ps.filter((p) => p.g === 'P').length, nL = ps.length - nP;
+  $('#pCount').textContent = ps.length + ' pemain · ' + nL + ' L · ' + nP + ' P';
+  $('#chips').innerHTML = ps.length ? ps.map((p) =>
+    '<span class="chip"><button type="button" class="nm" data-act="chip-g" data-val="' + esc(p.id) + '" aria-label="' + esc(p.name) + ', ' + (p.g === 'P' ? 'perempuan' : 'laki-laki') + '. Ketuk untuk ganti">' +
+    '<span class="t">' + esc(p.name) + '</span><span class="tag ' + p.g + '">' + p.g + '</span></button>' +
+    '<button type="button" class="rm" data-act="chip-rm" data-val="' + esc(p.id) + '" aria-label="Hapus ' + esc(p.name) + '">' + ICON.x + '</button></span>'
+  ).join('') : '<p class="hint">Belum ada pemain. Tempel list atau tambah nama satu per satu.</p>';
+
+  const cm = $('#community');
+  if (document.activeElement !== cm) cm.value = su.community;
+
+  $('#segFormat').innerHTML = segHTML([{ val: 'americano', label: 'Americano' }, { val: 'mexicano', label: 'Mexicano', disabled: cfg.score === 'bebas' }], cfg.format, 'format');
+  $('#formatNote').textContent = cfg.format === 'mexicano'
+    ? 'Ronde 1 diacak. Mulai ronde 2, yang skornya mirip dipertemukan, jadi makin seru.'
+    : 'Pasangan dan lawan berganti tiap ronde. Skor dihitung per orang.';
+  $('#segPair').innerHTML = segHTML([{ val: 'acak', label: 'Acak' }, { val: 'mix', label: 'Mix gender' }, { val: 'tetap', label: 'Tetap' }], cfg.pair, 'pair');
+  const pn = $('#pairNote');
+  pn.classList.remove('warn');
+  if (cfg.pair === 'mix') {
+    pn.textContent = 'Tiap tim 1 L + 1 P.' + (nL !== nP ? ' Sekarang ' + nL + ' L · ' + nP + ' P, jadi sebagian tim sesama jenis atau ada yang lebih sering istirahat.' : '');
+    if (nL !== nP) pn.classList.add('warn');
+  } else if (cfg.pair === 'tetap') {
+    pn.textContent = 'Pasangan diambil dari urutan list: nomor 1 dengan 2, 3 dengan 4, dan seterusnya. Klasemen dihitung per tim.';
+  } else {
+    pn.textContent = 'Pasangan diacak ulang tiap ronde, diusahakan tidak dobel dengan partner yang sama.';
+  }
+  const tb = $('#teamsBox');
+  if (cfg.pair === 'tetap' && ps.length >= 2) {
+    const pairs = [];
+    for (let i = 0; i < ps.length; i += 2) pairs.push(ps[i + 1] ? ps[i].name + ' & ' + ps[i + 1].name : ps[i].name + ' (belum ada pasangan)');
+    tb.innerHTML = '<div class="teams">' + pairs.map((t, i) => '<span>' + (i + 1) + '. ' + esc(t) + '</span>').join('') + '</div>' +
+      '<button type="button" class="btn small" data-act="shuffle-pairs">Acak pasangan' + (nL === nP ? ' (L + P)' : '') + '</button>';
+    tb.hidden = false;
+  } else { tb.hidden = true; tb.innerHTML = ''; }
+
+  $('#courtsVal').textContent = cfg.courts;
+  $('#segDur').innerHTML = segHTML([60, 90, 120, 180].map((v) => ({ val: v, label: DUR_LABEL[v] })), cfg.dur, 'dur');
+  $('#segScore').innerHTML = segHTML([{ val: 'poin', label: 'Total poin' }, { val: 'tenis', label: 'Tenis' }, { val: 'bebas', label: 'Tanpa skor' }], cfg.score, 'score');
+  $('#lblV').textContent = cfg.score === 'poin' ? 'Poin per ronde' : cfg.score === 'tenis' ? 'Set pendek per ronde' : 'Lama tiap ronde';
+  $('#segV').innerHTML = segHTML(V_OPTS[cfg.score].map((v) => ({ val: v, label: vShort(cfg.score, v) })), cfg.v, 'v');
+  $('#vNote').textContent = cfg.score === 'poin'
+    ? 'Total poin dibagi dua tim. Contoh 24 poin: skor akhir bisa 14–10 atau 12–12.'
+    : cfg.score === 'tenis' ? 'Hitungan tenis 15-30-40. Main sampai salah satu tim dapat jumlah game ini.'
+      : 'Tanpa skor dan klasemen. Cuma rotasi pasangan, ganti ronde sesuai waktu.';
+
+  const n = ps.length, geo = E.geometry(cfg, n), m = E.minutesPer(cfg.score, cfg.v);
+  const total = Math.round(cfg.rounds * m + 10);
+  const rec = E.recommend(cfg, n);
+  const isRec = !cfg.vManual && cfg.rounds === rec.r && cfg.v === rec.v;
+  $('#recEyebrow').textContent = isRec ? 'Rekomendasi pas waktu sewa' : 'Rencana sesi';
+  $('#recTitle').textContent = cfg.rounds + ' ronde × ' + vLong(cfg.score, cfg.v);
+  $('#recSub').textContent = '± ' + Math.round(m) + ' menit per ronde · selesai ± ' + fmtMin(total) + ' dari sewa ' + DUR_LABEL[cfg.dur] + ' (termasuk 10 menit pemanasan)';
+  $('#recFair').textContent = E.fairText(cfg, n, cfg.rounds);
+  const warns = [];
+  if (n >= 4 && !(cfg.pair === 'tetap' && n % 2)) {
+    if (cfg.courts > geo.maxMatches) warns.push('Cukup ' + geo.maxMatches + ' lapangan untuk ' + (geo.team ? geo.units + ' tim.' : n + ' pemain.'));
+    if (total > cfg.dur) warns.push('Perkiraan lewat dari waktu sewa. Kurangi ronde atau poin.');
+  }
+  const rw = $('#recWarn');
+  rw.textContent = warns.join(' ');
+  rw.hidden = !warns.length;
+  $('#roundsVal').textContent = cfg.rounds;
+  renderInstall();
+}
+
+function sessHeader(titleHTML) {
+  return '<header class="sess-top">' +
+    '<button type="button" class="icon-btn" data-act="menu" aria-label="Menu sesi">' + ICON.dots + '</button>' +
+    '<div class="sess-mid"><span class="eyebrow">' + esc(S.session.community) + '</span><h1>' + titleHTML + '</h1></div>' +
+    '<div class="clock"><span class="clock-main" id="tRound" title="Lama ronde ini berjalan">00:00</span><span class="clock-sub" id="tLeft"></span></div>' +
+    '</header>';
+}
+function tabsHTML(active) {
+  const lbl = S.session.cfg.score === 'bebas' ? 'Giliran main' : 'Klasemen';
+  return '<div class="seg" role="group" aria-label="Tampilan sesi">' +
+    '<button type="button" data-act="tab-round" aria-pressed="' + (active === 'round') + '">Ronde</button>' +
+    '<button type="button" data-act="tab-board" aria-pressed="' + (active === 'board') + '">' + lbl + '</button></div>';
+}
+
+function renderRound() {
+  const ses = S.session, cfg = ses.cfg, R = ses.rounds, cur = R.length;
+  S.viewRound = Math.min(Math.max(1, S.viewRound || cur), cur);
+  const vr = S.viewRound, rd = R[vr - 1];
+  const nm = nameMap(ses);
+  const label = (arr) => arr.map((id) => nm[id] || id).join(' & ');
+  const scored = cfg.score !== 'bebas';
+  const chips = R.map((r) => '<button type="button" class="rchip' + (scored && roundComplete(ses, r) ? ' done' : '') + '" data-act="view-round" data-val="' + r.n + '" aria-pressed="' + (r.n === vr) + '" aria-label="Ronde ' + r.n + '">R' + r.n + '</button>').join('');
+  const matches = rd.matches.map((m, i) => matchHTML(vr, i, m, label, scored)).join('');
+  const sit = rd.sit.length ? '<div class="sit">Istirahat ronde ini: <b>' + esc(rd.sit.map((id) => nm[id]).join(', ')) + '</b></div>' : '';
+  let hint;
+  if (!scored) hint = 'Main santai tanpa skor. Ganti ronde tiap ± ' + cfg.v + ' menit.';
+  else hint = (cfg.score === 'poin' ? 'Isi skor salah satu tim, skor lawan terisi otomatis (total ' + cfg.v + ').' : 'Isi jumlah game yang dimenangkan tiap tim.') +
+    (vr < cur ? ' Ini ronde yang sudah lewat, skornya masih bisa diubah.' : '');
+  $('#v-round').innerHTML = sessHeader('Ronde ' + vr + ' <span class="of">/ ' + Math.max(cfg.rounds, cur) + '</span>') + tabsHTML('round') +
+    (cur > 1 ? '<div class="rchips" role="group" aria-label="Pilih ronde">' + chips + '</div>' : '') +
+    '<div class="matches">' + matches + '</div>' + sit + '<p class="hint">' + esc(hint) + '</p>';
+}
+function matchHTML(r, i, m, label, scored) {
+  const done = m.sa != null && m.sb != null;
+  const aW = done && m.sa > m.sb, bW = done && m.sb > m.sa;
+  const inp = (side, val, names) => scored
+    ? '<input class="score" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" autocomplete="off" data-score="' + side + '" data-r="' + r + '" data-m="' + i + '" value="' + (val == null ? '' : val) + '" placeholder="–" aria-label="Skor ' + esc(names) + '">'
+    : '';
+  return '<article class="match">' +
+    '<div class="match-head"><span class="eyebrow">Lapangan ' + m.court + '</span><span class="lead" id="lead-' + r + '-' + i + '">' + (done && m.sa === m.sb ? 'Seri' : '') + '</span></div>' +
+    '<div class="vs">' +
+      '<div class="side' + (aW ? ' win' : '') + '" id="sa-' + r + '-' + i + '"><span class="names">' + esc(label(m.a)) + '</span>' + inp('a', m.sa, label(m.a)) + '</div>' +
+      '<span class="vs-mid" aria-hidden="true">VS</span>' +
+      '<div class="side' + (bW ? ' win' : '') + '" id="sb-' + r + '-' + i + '"><span class="names">' + esc(label(m.b)) + '</span>' + inp('b', m.sb, label(m.b)) + '</div>' +
+    '</div></article>';
+}
+function updateMatchState(r, i) {
+  const m = S.session.rounds[r - 1].matches[i];
+  const done = m.sa != null && m.sb != null;
+  const a = $('#sa-' + r + '-' + i), b = $('#sb-' + r + '-' + i), lead = $('#lead-' + r + '-' + i);
+  if (a) a.classList.toggle('win', done && m.sa > m.sb);
+  if (b) b.classList.toggle('win', done && m.sb > m.sa);
+  if (lead) lead.textContent = done && m.sa === m.sb ? 'Seri' : '';
+}
+
+function tableHTML(ses, st) {
+  const cfg = ses.cfg;
+  if (cfg.score === 'bebas') {
+    const s2 = E.buildStats(ses);
+    return '<div class="table"><div class="trow c3 head"><span>Pemain</span><span class="num">Main</span><span class="num">Istirahat</span></div>' +
+      ses.players.map((p) => '<div class="trow c3"><span class="nm">' + esc(p.name) + '</span><span class="num">' + s2[p.id].played + '</span><span class="num">' + s2[p.id].sat + '</span></div>').join('') + '</div>';
+  }
+  const unitW = cfg.score === 'tenis' ? 'Game' : 'Poin';
+  return '<div class="table"><div class="trow head"><span>#</span><span>' + (st.team ? 'Tim' : 'Pemain') + '</span><span class="num">Main</span><span class="num">M-S-K</span><span class="num">' + unitW + '</span></div>' +
+    st.rows.map((r, i) => '<div class="trow"><span class="rank' + (i < 3 ? ' r' + (i + 1) : '') + '">' + (i + 1) + '</span><span class="nm">' + esc(r.name) + '</span><span class="num">' + r.games + '</span><span class="num">' + r.w + '-' + r.d + '-' + r.l + '</span><span class="num pts">' + r.pts + '</span></div>').join('') + '</div>';
+}
+function renderBoard() {
+  const ses = S.session, cfg = ses.cfg, st = E.standings(ses);
+  const unitW = cfg.score === 'tenis' ? 'game' : 'poin';
+  const note = cfg.score === 'bebas' ? 'Mode tanpa skor: yang dihitung hanya giliran main dan istirahat.'
+    : st.equal ? 'Urutan dari total ' + unitW + ', lalu jumlah menang. M-S-K = menang, seri, kalah.'
+      : 'Jumlah main tiap ' + (st.team ? 'tim' : 'pemain') + ' beda, jadi urutan memakai rata-rata ' + unitW + ' per main.';
+  $('#v-board').innerHTML = sessHeader(cfg.score === 'bebas' ? 'Giliran main' : 'Klasemen') + tabsHTML('board') + tableHTML(ses, st) + '<p class="hint">' + esc(note) + '</p>';
+}
+
+function renderDone() {
+  const ses = S.session, cfg = ses.cfg, st = E.standings(ses);
+  const scored = cfg.score !== 'bebas' && st.rows.some((r) => r.games > 0);
+  const unitW = cfg.score === 'tenis' ? 'game' : 'poin';
+  let h = '<header class="top"><div class="brand"><span class="b1">VEON</span><span class="b2">PLAY</span></div><span class="pill">Sesi selesai</span></header>' +
+    '<div class="hero"><h1>' + esc(ses.community) + '</h1><p>' + esc(formatLabel(cfg)) + ' · ' + ses.rounds.length + ' ronde · ' + ses.players.length + ' pemain · ' + esc(dateLabel(ses.startedAt)) + '</p></div>';
+  if (scored) {
+    const top = st.rows;
+    const pod = (r, k) => r ? '<div class="pod p' + k + '">' + (k === 1 ? '<span class="mvp-tag">' + (st.team ? 'JUARA' : 'MVP') + '</span>' : '') +
+      '<span class="av" aria-hidden="true">' + esc(initials(r.name)) + '</span><span class="pn">' + esc(r.name) + '</span><span class="pv">' + r.pts + ' ' + unitW + '</span>' +
+      '<span class="base" aria-label="Peringkat ' + k + '">' + k + '</span></div>' : '<div></div>';
+    h += '<div class="podium">' + pod(top[1], 2) + pod(top[0], 1) + pod(top[2], 3) + '</div>';
+    h += '<div class="prize"><span class="eyebrow">Hadiah juara dari VEON</span><p>' + esc(PRIZE_TEXT) + '</p></div>';
+    h += '<div class="block"><span class="lbl">Klasemen akhir</span>' + tableHTML(ses, st) + '</div>';
+  } else if (cfg.score === 'bebas') {
+    h += '<div class="block"><span class="lbl">Yang main hari ini</span>' + tableHTML(ses, st) + '</div>';
+  } else {
+    h += '<div class="block"><p class="hint">Belum ada skor yang diisi, jadi belum ada klasemen.</p></div>';
+  }
+  h += '<div class="stack">' +
+    '<a class="btn" href="' + esc(waLink(recapText())) + '" target="_blank" rel="noopener">' + ICON.chat + ' Kirim rekap ke grup WA</a>' +
+    '<button type="button" class="btn" data-act="copy-wa">' + ICON.copy + ' Salin rekap</button>' +
+    '<button type="button" class="btn" data-act="new-session">Sesi baru, pemain sama</button></div>' +
+    '<p class="foot">VEON PLAY gratis, dipersembahkan oleh VEON Padel · <a href="' + esc(waLink(INVITE_TEXT)) + '" target="_blank" rel="noopener">Ajak host lain</a></p>';
+  $('#v-done').innerHTML = h;
+}
+
+function renderBar() {
+  let h = '';
+  if (S.view === 'setup') {
+    const issue = startIssue();
+    h = (issue ? '<p class="bar-note">' + esc(issue) + '</p>' : '') +
+      '<div class="bar-row"><button type="button" class="btn primary" data-act="start"' + (issue ? ' disabled' : '') + '>Mulai ronde 1 ' + ICON.arrow + '</button></div>';
+  } else if (S.view === 'round') {
+    const ses = S.session, cur = ses.rounds.length;
+    if (S.viewRound < cur) {
+      h = '<div class="bar-row"><button type="button" class="btn" data-act="latest">Ke ronde terbaru (R' + cur + ')</button></div>';
+    } else {
+      const ok = roundComplete(ses, ses.rounds[cur - 1]);
+      const atEnd = cur >= ses.cfg.rounds;
+      const label = !ok ? 'Isi skor semua lapangan' : atEnd ? 'Simpan & selesai' : (ses.cfg.score === 'bebas' ? 'Ronde ' + (cur + 1) : 'Simpan & ronde ' + (cur + 1));
+      h = '<div class="bar-row"><button type="button" class="btn primary" data-act="next"' + (ok ? '' : ' disabled') + '>' + label + '</button></div>';
+    }
+  } else if (S.view === 'board') {
+    h = '<div class="bar-row"><button type="button" class="btn" data-act="tab-round">Ke ronde ' + S.session.rounds.length + '</button><button type="button" class="btn" data-act="end-ask">Akhiri sesi</button></div>';
+  } else if (S.view === 'done') {
+    h = '<div class="bar-row"><button type="button" class="btn primary" data-act="card">' + ICON.story + ' Buat kartu IG Story</button></div>';
+  }
+  $('#barIn').innerHTML = h;
+}
+
+/* ---------- sheet ---------- */
+function openSheet(kind, text) {
+  let h = '';
+  if (kind === 'finish') h = '<h2 id="sheetTitle">Target ' + S.session.cfg.rounds + ' ronde tercapai</h2><p>Tambah satu ronde lagi, atau akhiri dan lihat hasil?</p>' +
+    '<button type="button" class="btn primary" data-act="end">Akhiri & lihat hasil</button><button type="button" class="btn" data-act="add-round">Tambah 1 ronde</button>';
+  else if (kind === 'menu') h = '<h2 id="sheetTitle">Menu sesi</h2>' +
+    '<button type="button" class="btn primary" data-act="end">Akhiri sesi & lihat hasil</button>' +
+    '<button type="button" class="btn" data-act="cancel-ask">Batalkan sesi</button>' +
+    '<button type="button" class="btn" data-act="sheet-close">Tutup</button>';
+  else if (kind === 'end-ask') h = '<h2 id="sheetTitle">Akhiri sesi sekarang?</h2><p>Skor ronde yang belum diisi tidak ikut dihitung.</p>' +
+    '<button type="button" class="btn primary" data-act="end">Akhiri & lihat hasil</button><button type="button" class="btn" data-act="sheet-close">Kembali</button>';
+  else if (kind === 'cancel-ask') h = '<h2 id="sheetTitle">Batalkan sesi?</h2><p>Semua ronde dan skor sesi ini dihapus. Daftar pemain tetap tersimpan.</p>' +
+    '<button type="button" class="btn" data-act="cancel-yes">Ya, batalkan sesi</button><button type="button" class="btn primary" data-act="sheet-close">Kembali</button>';
+  else if (kind === 'copy') h = '<h2 id="sheetTitle">Salin rekap</h2><p>Tekan lama teks di bawah, pilih Salin, lalu tempel di grup WA.</p>' +
+    '<label for="copyBox" class="sr">Teks rekap</label><textarea id="copyBox" readonly>' + esc(text) + '</textarea>' +
+    '<button type="button" class="btn" data-act="sheet-close">Tutup</button>';
+  $('#sheetBody').innerHTML = h;
+  $('#sheet').hidden = false;
+  const box = $('#copyBox');
+  if (box) { box.focus(); box.select(); }
+  else { const first = $('#sheetBody button'); if (first) first.focus(); }
+}
+function closeSheet() { $('#sheet').hidden = true; $('#sheetBody').innerHTML = ''; }
+
+/* ---------- session actions ---------- */
+function startSession() {
+  if (startIssue()) return;
+  const ps = setupPlayers();
+  const cfg = Object.assign({}, S.setup.cfg);
+  if (cfg.score === 'bebas') cfg.format = 'americano';
+  const ses = { players: ps.map((p) => ({ id: p.id, name: p.name, g: p.g })), cfg: cfg,
+    community: (S.setup.community || '').trim() || 'Sesi Padel', teams: null, rounds: [], startedAt: Date.now(), endedAt: null };
+  if (cfg.pair === 'tetap') {
+    ses.teams = [];
+    for (let i = 0; i + 1 < ses.players.length; i += 2) ses.teams.push([ses.players[i].id, ses.players[i + 1].id]);
+  }
+  ses.rounds.push(E.generateRound(ses));
+  S.session = ses; S.view = 'round'; S.viewRound = 1;
+  save(); render(); window.scrollTo(0, 0); keepAwake();
+}
+function nextRound() {
+  const ses = S.session, last = ses.rounds[ses.rounds.length - 1];
+  if (!roundComplete(ses, last)) return;
+  if (ses.rounds.length >= ses.cfg.rounds) { openSheet('finish'); return; }
+  ses.rounds.push(E.generateRound(ses));
+  S.viewRound = ses.rounds.length;
+  save(); render(); window.scrollTo(0, 0);
+}
+function addRound() {
+  const ses = S.session;
+  ses.cfg.rounds = Math.max(ses.cfg.rounds, ses.rounds.length) + 1;
+  ses.rounds.push(E.generateRound(ses));
+  S.view = 'round'; S.viewRound = ses.rounds.length;
+  closeSheet(); save(); render(); window.scrollTo(0, 0);
+}
+function endSession() {
+  S.session.endedAt = Date.now();
+  S.view = 'done';
+  closeSheet(); save(); render(); window.scrollTo(0, 0); releaseWake();
+}
+
+function onScore(inp) {
+  const ses = S.session, cfg = ses.cfg;
+  const r = +inp.dataset.r, i = +inp.dataset.m, side = inp.dataset.score;
+  const m = ses.rounds[r - 1].matches[i];
+  const digits = inp.value.replace(/\D/g, '').slice(0, 2);
+  if (digits !== inp.value) inp.value = digits;
+  const otherSide = side === 'a' ? 'b' : 'a';
+  const other = document.querySelector('.score[data-r="' + r + '"][data-m="' + i + '"][data-score="' + otherSide + '"]');
+  if (digits === '') {
+    m['s' + side] = null;
+    if (cfg.score === 'poin') { m['s' + otherSide] = null; if (other) other.value = ''; }
+  } else {
+    let v = parseInt(digits, 10);
+    if (cfg.score === 'poin') {
+      v = Math.min(v, cfg.v);
+      if (String(v) !== inp.value) inp.value = String(v);
+      m['s' + side] = v; m['s' + otherSide] = cfg.v - v;
+      if (other) other.value = String(cfg.v - v);
+    } else {
+      m['s' + side] = v;
+    }
+  }
+  updateMatchState(r, i);
+  save(); renderBar();
+}
+
+/* ---------- recap + card ---------- */
+function recapText() {
+  const ses = S.session, cfg = ses.cfg, st = E.standings(ses);
+  const unitW = cfg.score === 'tenis' ? 'game' : 'poin';
+  const L = ['*' + ses.community.toUpperCase() + '*', formatLabel(cfg) + ' · ' + ses.rounds.length + ' ronde · ' + ses.players.length + ' pemain', dateLabel(ses.startedAt), ''];
+  if (cfg.score !== 'bebas' && st.rows.some((r) => r.games > 0)) {
+    L.push('*Klasemen akhir*');
+    st.rows.forEach((r, i) => L.push((i + 1) + '. ' + r.name + ' · ' + r.pts + ' ' + unitW + ' · menang ' + r.w + ' dari ' + r.games));
+    L.push('', (st.team ? 'Juara' : 'MVP') + ': *' + st.rows[0].name + '*');
+  } else {
+    L.push('*Yang main*');
+    ses.players.forEach((p, i) => L.push((i + 1) + '. ' + p.name));
+  }
+  L.push('', 'Dibuat dengan VEON PLAY · ' + APP_URL);
+  return L.join('\n');
+}
+function copyRecap() {
+  const t = recapText();
+  try {
+    navigator.clipboard.writeText(t).then(() => toast('Rekap disalin. Tempel di grup WA.'), () => openSheet('copy', t));
+  } catch (e) { openSheet('copy', t); }
+}
+
+function wrapLines(c, text, maxW) {
+  const words = text.split(/\s+/).filter(Boolean), lines = [];
+  let line = '';
+  for (const w of words) {
+    const t = line ? line + ' ' + w : w;
+    if (!line || c.measureText(t).width <= maxW) line = t; else { lines.push(line); line = w; }
+  }
+  if (line) lines.push(line);
+  return lines;
+}
+function spaced(c, text, x, y, sp) { for (const ch of text) { c.fillText(ch, x, y); x += c.measureText(ch).width + sp; } }
+function clip(c, text, maxW) {
+  if (c.measureText(text).width <= maxW) return text;
+  let t = text;
+  while (t.length > 1 && c.measureText(t + '…').width > maxW) t = t.slice(0, -1);
+  return t + '…';
+}
+async function drawCard(cv) {
+  const ses = S.session, cfg = ses.cfg, st = E.standings(ses);
+  try {
+    await Promise.race([
+      Promise.all(['400 160px Anton', '800 40px Manrope', '700 40px Manrope', '600 40px Manrope', '700 40px "Space Grotesk"'].map((f) => document.fonts.load(f))),
+      new Promise((res) => setTimeout(res, 2500))
+    ]);
+  } catch (e) { /* pakai font cadangan */ }
+  const c = cv.getContext('2d');
+  const W = 1080, H = 1920, P = 80;
+  const ANTON = 'Anton, Impact, "Arial Narrow", sans-serif', MAN = 'Manrope, system-ui, sans-serif', SG = '"Space Grotesk", system-ui, sans-serif';
+  c.clearRect(0, 0, W, H);
+  c.fillStyle = '#0B0B09'; c.fillRect(0, 0, W, H);
+  const ln = (x1, y1, x2, y2, col, w) => { c.strokeStyle = col; c.lineWidth = w || 4; c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke(); };
+  c.lineWidth = 4; c.strokeStyle = '#201F1A'; c.strokeRect(90, 288, 900, 1344);
+  ln(90, 960, 990, 960, '#2A2820'); ln(90, 490, 990, 490, '#201F1A'); ln(90, 1430, 990, 1430, '#201F1A'); ln(540, 490, 540, 1430, '#201F1A');
+  c.textBaseline = 'alphabetic'; c.textAlign = 'left';
+
+  const fmt = cfg.score === 'bebas' ? 'FUN GAME' : cfg.format.toUpperCase();
+  c.font = '800 30px ' + MAN; c.fillStyle = '#7FE0C2';
+  spaced(c, fmt + ' · ' + ses.players.length + ' PEMAIN · ' + ses.rounds.length + ' RONDE', P, 150, 5);
+  c.font = '600 34px ' + MAN; c.fillStyle = '#A39C90';
+  c.fillText(dateLabel(ses.startedAt), P, 204);
+
+  const title = ses.community.toUpperCase();
+  let size = 170, lines = [];
+  for (;;) {
+    c.font = '400 ' + size + 'px ' + ANTON;
+    lines = wrapLines(c, title, W - 2 * P);
+    const widest = Math.max.apply(null, lines.map((l) => c.measureText(l).width));
+    if ((lines.length <= 3 && widest <= W - 2 * P) || size <= 72) break;
+    size -= 6;
+  }
+  c.fillStyle = '#F3EFE6';
+  let y = 250 + size * 0.88;
+  for (const l of lines.slice(0, 3)) { c.fillText(l, P, y); y += size * 0.96; }
+
+  const scored = cfg.score !== 'bebas' && st.rows.some((r) => r.games > 0);
+  if (scored) {
+    const unitW = cfg.score === 'tenis' ? 'game' : 'poin';
+    const top = st.rows[0];
+    const rowsTop = 1520, rh = 84, count = Math.min(3, st.rows.length);
+    for (let i = 0; i < count; i++) {
+      const r = st.rows[i], yt = rowsTop + i * rh, yb = yt + 58;
+      ln(P, yt, W - P, yt, '#2C2A25', 2);
+      c.font = '400 56px ' + ANTON; c.fillStyle = i === 0 ? '#D4AF5A' : '#CFC8BB'; c.fillText(String(i + 1), P, yb);
+      c.font = (i === 0 ? '800' : '700') + ' 44px ' + MAN; c.fillStyle = '#F3EFE6'; c.fillText(clip(c, r.name, W - 2 * P - 90 - 170), P + 90, yb);
+      c.font = '700 44px ' + SG; c.textAlign = 'right'; c.fillText(String(r.pts), W - P, yb); c.textAlign = 'left';
+    }
+    ln(P, rowsTop + count * rh, W - P, rowsTop + count * rh, '#2C2A25', 2);
+    c.font = '600 42px ' + MAN; c.fillStyle = '#E8E2D4';
+    c.fillText(clip(c, top.pts + ' ' + unitW + ' · menang ' + top.w + ' dari ' + top.games, W - 2 * P), P, 1462);
+    const nm = top.name.toUpperCase();
+    let ns = 300;
+    for (; ns > 90; ns -= 6) { c.font = '400 ' + ns + 'px ' + ANTON; if (c.measureText(nm).width <= W - 2 * P) break; }
+    c.font = '400 ' + ns + 'px ' + ANTON; c.fillStyle = '#D4AF5A';
+    c.fillText(clip(c, nm, W - 2 * P), P, 1400);
+    c.font = '800 32px ' + MAN; c.fillStyle = '#7FE0C2';
+    spaced(c, st.team ? 'JUARA HARI INI' : 'MVP HARI INI', P, 1400 - ns * 0.86 - 30, 7);
+  } else {
+    c.font = '800 32px ' + MAN; c.fillStyle = '#7FE0C2';
+    spaced(c, 'YANG MAIN HARI INI', P, 1100, 7);
+    const names = ses.players.map((p) => p.name), colW = (W - 2 * P) / 2;
+    c.font = '700 44px ' + MAN; c.fillStyle = '#F3EFE6';
+    names.slice(0, 16).forEach((n, i) => { const col = i < 8 ? 0 : 1; c.fillText(clip(c, n, colW - 24), P + col * colW, 1176 + (i % 8) * 66); });
+    if (names.length > 16) { c.fillStyle = '#A39C90'; c.fillText('+' + (names.length - 16) + ' lainnya', P + colW, 1176 + 8 * 66); }
+  }
+  c.font = '600 30px ' + MAN; c.fillStyle = '#A39C90';
+  c.fillText('Dibuat dengan VEON PLAY', P, 1846);
+  c.textAlign = 'right'; c.fillText(BRAND_IG, W - P, 1846); c.textAlign = 'left';
+}
+
+let cardFile = null;
+function canShareFile(file) {
+  try { return !!(navigator.canShare && navigator.share && navigator.canShare({ files: [file] })); } catch (e) { return false; }
+}
+async function openCard() {
+  const view = $('#cardView'), img = $('#cardImg'), btn = $('#cardSave'), hint = $('#cardHint');
+  view.hidden = false;
+  document.body.style.overflow = 'hidden';
+  img.hidden = true; btn.disabled = true; cardFile = null;
+  hint.textContent = 'Menyiapkan kartu…';
+  const cv = $('#cardCanvas');
+  await drawCard(cv);
+  try { img.src = cv.toDataURL('image/png'); img.hidden = false; } catch (e) { /* abaikan */ }
+  const blob = await new Promise((res) => { try { cv.toBlob(res, 'image/png'); } catch (e) { res(null); } });
+  if (blob) cardFile = new File([blob], 'veon-play-' + slug(S.session.community) + '.png', { type: 'image/png' });
+  const share = cardFile && canShareFile(cardFile);
+  btn.textContent = share ? 'Bagikan / simpan gambar' : 'Unduh gambar';
+  btn.disabled = !cardFile;
+  hint.textContent = (IS_IOS ? 'Tekan lama gambar untuk simpan ke Foto, atau pakai tombol di bawah. ' : '') + 'Unggah ke IG Story dan tag ' + BRAND_IG + '.';
+}
+function closeCard() { $('#cardView').hidden = true; document.body.style.overflow = ''; }
+function saveCard() {
+  if (!cardFile) return;
+  if (canShareFile(cardFile)) {
+    navigator.share({ files: [cardFile], title: 'VEON PLAY' }).catch((e) => {
+      if (!e || e.name !== 'AbortError') toast('Gagal membagikan. Tekan lama gambarnya untuk menyimpan.');
+    });
+    return;
+  }
+  const url = URL.createObjectURL(cardFile);
+  const a = document.createElement('a');
+  a.href = url; a.download = cardFile.name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  toast('Gambar diunduh');
+}
+
+/* ---------- misc ---------- */
+let toastTimer = null;
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+let wakeLock = null;
+async function keepAwake() {
+  try { if ('wakeLock' in navigator && !wakeLock) { wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', () => { wakeLock = null; }); } }
+  catch (e) { wakeLock = null; }
+}
+function releaseWake() { try { if (wakeLock) wakeLock.release(); } catch (e) { /* abaikan */ } wakeLock = null; }
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.session && !S.session.endedAt) keepAwake(); });
+
+function tick() {
+  const ses = S.session;
+  if (!ses || (S.view !== 'round' && S.view !== 'board')) return;
+  const tr = $('#tRound'), tl = $('#tLeft');
+  if (!tr || !tl) return;
+  const last = ses.rounds[ses.rounds.length - 1];
+  tr.textContent = mmss(Date.now() - (last.startedAt || ses.startedAt));
+  const rem = ses.startedAt + ses.cfg.dur * 60000 - Date.now();
+  if (rem >= 0) { tl.textContent = 'sisa sewa ' + Math.ceil(rem / 60000) + ' mnt'; tl.classList.remove('over'); }
+  else { tl.textContent = 'lewat ' + Math.floor(-rem / 60000) + ' mnt dari sewa'; tl.classList.add('over'); }
+}
+setInterval(tick, 1000);
+
+/* ---------- events ---------- */
+let pasteTimer = null;
+document.addEventListener('input', (e) => {
+  const t = e.target;
+  if (t.classList && t.classList.contains('score')) onScore(t);
+  else if (t.id === 'paste') {
+    S.setup.text = t.value; S.setup.example = false;
+    clearTimeout(pasteTimer);
+    pasteTimer = setTimeout(() => { refreshPlan(); save(); renderSetup(); renderBar(); }, 180);
+  } else if (t.id === 'community') { S.setup.community = t.value; save(); }
+});
+document.addEventListener('focusin', (e) => {
+  const t = e.target;
+  if ((t.id === 'paste' && S.setup.example) || (t.classList && t.classList.contains('score'))) setTimeout(() => { try { t.select(); } catch (err) { /* abaikan */ } }, 0);
+});
+$('#addForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const inp = $('#addName');
+  const name = inp.value.replace(/\s+/g, ' ').trim().slice(0, 24);
+  if (!name) return;
+  const ps = setupPlayers();
+  let nm = name, k = 2;
+  while (ps.some((p) => p.id === nm.toLowerCase())) nm = name + ' ' + (k++);
+  ps.push({ id: nm.toLowerCase(), name: nm });
+  setPlayers(ps);
+  S.setup.example = false;
+  inp.value = '';
+  refreshPlan(); save(); render();
+  inp.focus();
+});
+$('#sheet').addEventListener('click', (e) => { if (e.target.id === 'sheet') closeSheet(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  if (!$('#cardView').hidden) closeCard();
+  else if (!$('#sheet').hidden) closeSheet();
+});
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; if (S.view === 'setup') renderInstall(); });
+
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-act]');
+  if (!b || b.disabled) return;
+  const act = b.dataset.act, val = b.dataset.val;
+  const cfg = S.setup.cfg;
+  switch (act) {
+    case 'format': cfg.format = val; break;
+    case 'pair': cfg.pair = val; refreshPlan(); break;
+    case 'dur': cfg.dur = +val; refreshPlan(); break;
+    case 'score': cfg.score = val; cfg.vManual = false; if (val === 'bebas') cfg.format = 'americano'; refreshPlan(); break;
+    case 'v': cfg.v = +val; cfg.vManual = true; refreshPlan(); break;
+    case 'courts-': cfg.courts = Math.max(1, cfg.courts - 1); refreshPlan(); break;
+    case 'courts+': cfg.courts = Math.min(8, cfg.courts + 1); refreshPlan(); break;
+    case 'rounds-': cfg.rounds = Math.max(1, cfg.rounds - 1); break;
+    case 'rounds+': cfg.rounds = Math.min(40, cfg.rounds + 1); break;
+    case 'chip-g': { const ps = setupPlayers(); S.setup.gmap[val] = S.setup.gmap[val] === 'P' ? 'L' : 'P'; setPlayers(ps); break; }
+    case 'chip-rm': { setPlayers(setupPlayers().filter((p) => p.id !== val)); S.setup.example = false; refreshPlan(); break; }
+    case 'shuffle-pairs': {
+      const ps = setupPlayers();
+      const L = E.shuffle(ps.filter((p) => p.g === 'L')), P = E.shuffle(ps.filter((p) => p.g === 'P'));
+      let order;
+      if (L.length === P.length) { order = []; L.forEach((l, i) => { order.push(l, P[i]); }); }
+      else order = E.shuffle(ps.slice());
+      setPlayers(order); S.setup.example = false;
+      break;
+    }
+    case 'install':
+      if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.finally(() => { deferredPrompt = null; renderInstall(); }); }
+      return;
+    case 'install-x': try { localStorage.setItem('veon-play-install-x', '1'); } catch (err) { /* abaikan */ } renderInstall(); return;
+    case 'start': startSession(); return;
+    case 'tab-round': S.view = 'round'; S.viewRound = S.session.rounds.length; break;
+    case 'tab-board': S.view = 'board'; break;
+    case 'view-round': S.viewRound = +val; break;
+    case 'latest': S.viewRound = S.session.rounds.length; break;
+    case 'next': nextRound(); return;
+    case 'menu': openSheet('menu'); return;
+    case 'end-ask': openSheet('end-ask'); return;
+    case 'cancel-ask': openSheet('cancel-ask'); return;
+    case 'cancel-yes': S.session = null; S.view = 'setup'; closeSheet(); releaseWake(); break;
+    case 'end': endSession(); return;
+    case 'add-round': addRound(); return;
+    case 'sheet-close': closeSheet(); return;
+    case 'card': openCard(); return;
+    case 'card-save': saveCard(); return;
+    case 'card-close': closeCard(); return;
+    case 'copy-wa': copyRecap(); return;
+    case 'new-session': S.session = null; S.view = 'setup'; S.viewRound = 1; save(); render(); window.scrollTo(0, 0); return;
+    default: return;
+  }
+  save(); render();
+});
+
+/* ---------- boot ---------- */
+$('#inviteLink').href = waLink(INVITE_TEXT);
+render();
+if (S.session && !S.session.endedAt) keepAwake();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js', { scope: './' }).catch(() => { /* tetap jalan tanpa offline */ }); });
+}
+})();
+</script>
+</body>
+</html>
