@@ -1,5 +1,5 @@
 // Kompas Veon: network-first, fallback ke cache supaya tetap terbuka saat offline.
-const CACHE = 'kompas-v1';
+const CACHE = 'kompas-v2';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'data.enc.json'];
 
 self.addEventListener('install', e => {
